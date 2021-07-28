@@ -40,7 +40,20 @@
     }
 </style>
 
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
 
+    {% if app.user == false %}
+        <div class="mb-3">
+            <a href="{{ path('app_login') }}"
+               class="button is-primary">
+                Login
+            </a>
+        </div>
+    {% endif %}
 
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
@@ -59,7 +72,7 @@
                 {{ blogPost.title }}
             </a>
             </td>
-            <td>{{ blogPost.author.name }}</td>
+            <td>{{ blogPost.author.email }}</td>
             <td>{{ blogPost.updated.format('Y-m-d h:m:s') }}</td>
         </tr>
     {% endfor %}
