@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BlogController!{% endblock %}
+{% block title %}Welcome to the blog!{% endblock %}
 
 {% block body %}
 <style>
@@ -45,7 +45,6 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-
     {% if app.user == false %}
         <div class="mb-3">
             <a href="{{ path('app_login') }}"
@@ -56,13 +55,18 @@
     {% endif %}
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Welcome to the blog!</h1>
+
+    <a href="{{ path('homepage') }}" class="button is-primary">
+        Create a new Entry
+    </a>
 
     <table class="styled-table">
     <tr>
         <th>Post title</th>
         <th>Author</th>
         <th>Updated</th>
+        {% if app.user and "ROLE_ADMIN" in app.user.roles %}<th>Edit</th>{% endif %}
     </tr>
     {% for blogPost in blogPosts %}
         <tr>
@@ -74,14 +78,17 @@
             </td>
             <td>{{ blogPost.author.email }}</td>
             <td>{{ blogPost.updated.format('Y-m-d h:m:s') }}</td>
+            {% if app.user and "ROLE_ADMIN" in app.user.roles %} <td>
+                <a href="{{ path('homepage') }}" class="button is-primary">
+                    Edit
+                </a>
+                </td>
+            {% endif %}
+
         </tr>
     {% endfor %}
 
     </table>
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/roman/Projects/simple-blog/src/Controller/BlogController.php'|file_link(0) }}">src/Controller/BlogController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/roman/Projects/simple-blog/templates/blog/index.html.twig'|file_link(0) }}">templates/blog/index.html.twig</a></code></li>
-    </ul>
+
 </div>
 {% endblock %}
