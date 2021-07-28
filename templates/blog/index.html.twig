@@ -6,6 +6,38 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .styled-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+    }
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+    .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+    }
 </style>
 
 
@@ -13,7 +45,7 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
-    <table>
+    <table class="styled-table">
     <tr>
         <th>Post title</th>
         <th>Author</th>
@@ -21,9 +53,14 @@
     </tr>
     {% for blogPost in blogPosts %}
         <tr>
-            <th>{{ blogPost.title }}</th>
-            <th>{{ blogPost.author.name }}</th>
-            <th>{{ blogPost.updated.format('Y-m-d h:m:s') }}</th>
+            <td>
+            <a href="{{ path('blog_post', {'slug': blogPost.slug}) }}"
+               class="button is-primary">
+                {{ blogPost.title }}
+            </a>
+            </td>
+            <td>{{ blogPost.author.name }}</td>
+            <td>{{ blogPost.updated.format('Y-m-d h:m:s') }}</td>
         </tr>
     {% endfor %}
 
