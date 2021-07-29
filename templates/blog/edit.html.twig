@@ -1,5 +1,22 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    <style>
+        textarea#blog_post_body {
+            margin: 10px 10px 0 10px;
+            width: 365px;
+            height: 175px;
+        }
+
+        input#blog_post_title {
+            margin: 10px;
+        }
+
+        button.btn.btn-primary {
+            margin: 10px;
+        }
+
+    </style>
+
     <h1>Edit post</h1>
     {{ form_start(blogPostForm) }}
     {{ form_widget(blogPostForm) }}

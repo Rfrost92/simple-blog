@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Command;
 
 use App\Entity\User;
@@ -22,8 +23,11 @@ class CreateUserCommand extends Command
      */
     private $em;
 
-    public function __construct(string $name = null, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em)
-    {
+    public function __construct(
+        string $name = null,
+        UserPasswordEncoderInterface $passwordEncoder,
+        EntityManagerInterface $em
+    ) {
         parent::__construct($name);
         $this->passwordEncoder = $passwordEncoder;
         $this->em = $em;
@@ -35,8 +39,7 @@ class CreateUserCommand extends Command
             ->addArgument('email', InputArgument::REQUIRED, 'The email of the user.')
             ->addArgument('password', InputArgument::REQUIRED, 'The password of the user.')
             ->setDescription('Creates a new user.')
-            ->setHelp('This command allows you to create a user...')
-        ;
+            ->setHelp('This command allows you to create a user...');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -46,12 +49,14 @@ class CreateUserCommand extends Command
 
         $user = new User();
         $user->setEmail($email);
-        $user->setRoles(['ROLE_ADMIN']);
+        $user->setRoles(['ROLE_USER']);
 
-        $user->setPassword($this->passwordEncoder->encodePassword(
-            $user,
-            $password
-        ));
+        $user->setPassword(
+            $this->passwordEncoder->encodePassword(
+                $user,
+                $password
+            )
+        );
         $this->em->persist($user);
         $this->em->flush();
         return Command::SUCCESS;

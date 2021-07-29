@@ -63,18 +63,25 @@
 
     <table class="styled-table">
     <tr>
-        <th>Post title</th>
+        <th>Post </th>
         <th>Author</th>
         <th>Updated</th>
         {% if app.user and "ROLE_ADMIN" in app.user.roles %}<th>Edit</th>{% endif %}
     </tr>
     {% for blogPost in blogPosts %}
         <tr>
-            <td>
-            <a href="{{ path('blog_post', {'slug': blogPost.slug}) }}"
-               class="button is-primary">
-                {{ blogPost.title }}
-            </a>
+            <div>
+                <div>
+                    <td>
+                    <a href="{{ path('blog_post', {'slug': blogPost.slug}) }}"
+                       class="button is-primary">
+                        {{ blogPost.title }}
+                    </a>
+                </div>
+                <div>
+                    {{ blogPost.body | slice(0,40) }}...
+                </div>
+            </div>
             </td>
             <td>{{ blogPost.author.email }}</td>
             <td>{{ blogPost.updated.format('Y-m-d\ H:i:s') }}</td>
