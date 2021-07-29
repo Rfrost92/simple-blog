@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\BlogPost;
 use App\Entity\User;
 use App\Form\Type\BlogPostType;
+use App\Utils\Slugifier;
 use Doctrine\DBAL\Types\StringType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -41,7 +42,7 @@ class BlogController extends AbstractController
             $blogPost->setTitle($data->getTitle());
             $blogPost->setBody($data->getBody());
             $blogPost->setAuthor($author);
-            $blogPost->setSlug(('122as-fee-13'));
+            $blogPost->setSlug(Slugifier::slugify($data->getTitle()));
             $blogPost->setUpdated($dateTime);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($blogPost);
