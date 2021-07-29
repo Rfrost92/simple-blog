@@ -22,19 +22,15 @@ class BlogPostRepository extends ServiceEntityRepository
     // /**
     //  * @return BlogPost[] Returns an array of BlogPost objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllOrderedByTime()
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('b.updated', 'Desc')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?BlogPost

@@ -57,7 +57,7 @@
 <div class="example-wrapper">
     <h1>Welcome to the blog!</h1>
 
-    <a href="{{ path('homepage') }}" class="button is-primary">
+    <a href="{{ path('new_post') }}" class="button is-primary">
         Create a new Entry
     </a>
 
@@ -77,9 +77,9 @@
             </a>
             </td>
             <td>{{ blogPost.author.email }}</td>
-            <td>{{ blogPost.updated.format('Y-m-d h:m:s') }}</td>
+            <td>{{ blogPost.updated.format('Y-m-d\ H:i:s') }}</td>
             {% if app.user and "ROLE_ADMIN" in app.user.roles %} <td>
-                <a href="{{ path('homepage') }}" class="button is-primary">
+                <a href="{{ path('edit_post', {'slug': blogPost.slug}) }}" class="button is-primary">
                     Edit
                 </a>
                 </td>
